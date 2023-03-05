@@ -18,7 +18,7 @@ class DiscographyViewModel @Inject constructor(
 
     fun getArtists(name: String) {
         viewModelScope.launch(dispatcherProvider.computation()) {
-            artists.value = interactor.getArtists(name).artists
+            artists.value = interactor.getArtists(name)?.artists ?: emptyList()
         }
     }
 }
