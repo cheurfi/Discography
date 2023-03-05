@@ -19,7 +19,7 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
-        buildConfigField "String", 'BASE_URL', '"https://musicbrainz.org/ws/2/"'
+        buildConfigField "String", 'BASE_URL', '"https://musicbrainz.org/"'
     }
 
     buildTypes {
