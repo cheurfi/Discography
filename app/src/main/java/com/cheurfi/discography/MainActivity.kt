@@ -9,6 +9,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import com.cheurfi.discography.data.Artist
 import com.cheurfi.discography.ui.composables.ArtistScreen
 import com.cheurfi.discography.ui.composables.SearchScreen
 import com.cheurfi.discography.ui.theme.DiscographyTheme
@@ -24,13 +25,12 @@ class MainActivity : ComponentActivity() {
         (applicationContext as MyApplication).appComponent.inject(this)
         super.onCreate(savedInstanceState)
         setContent {
+            val artists by viewmodel.artists.collectAsState(emptyList())
             var selectedArtist by remember { mutableStateOf<String?>(null) }
-
             if (selectedArtist == null) {
                 SearchPage(viewmodel = viewmodel, onArtistSelected = { selectedArtist = it })
             } else {
-                val artist =
-                ArtistPage(viewmodel = viewmodel, id = selectedArtist!!)
+                ArtistPage(artists = artists, id = selectedArtist!!)
                 BackHandler {
                     selectedArtist = null
                 }
@@ -57,12 +57,10 @@ private fun SearchPage(viewmodel: DiscographyViewModel, onArtistSelected: (Strin
 }
 
 @Composable
-private fun ArtistPage(viewmodel: DiscographyViewModel, id: String) {
+private fun ArtistPage(artists: List<Artist>, id: String) {
     DiscographyTheme {
         // A surface container using the 'background' color from the theme
         Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-
-            val artists by viewmodel.artists.collectAsState()
             val artist = artists.first { id == it.id }
             ArtistScreen(artist = artist)
         }
