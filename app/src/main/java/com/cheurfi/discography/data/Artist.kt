@@ -27,10 +27,10 @@ data class Artist(
         @SerializedName("locale")
         val locale: String,
         val name: String,
-        val primary: Any,
+        val primary: String?,
         @SerializedName("sort-name")
         val sortName: String,
-        val type: Any,
+        val type: String?,
     )
 
     data class BeginArea(
