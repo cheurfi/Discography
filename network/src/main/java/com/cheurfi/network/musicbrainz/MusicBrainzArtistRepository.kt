@@ -1,6 +1,5 @@
 package com.cheurfi.network.musicbrainz
 
-import android.util.Log
 import com.cheurfi.repository.data.Artist
 import com.cheurfi.repository.data.Recording
 import com.cheurfi.repository.network.ArtistRepository
@@ -21,7 +20,6 @@ class MusicBrainzArtistRepository @Inject constructor(
                     Artist(name = it.name, id = it.id)
                 }
             } catch (t: Throwable) {
-                Log.e("Server error", "MusicBrainz server error: $t")
                 emptyList()
             }
         }
@@ -37,7 +35,6 @@ class MusicBrainzArtistRepository @Inject constructor(
                         )
                     }
             } catch (t: Throwable) {
-                Log.e("Server error", "MusicBrainz server error: $t")
                 emptyList()
             }
         }
