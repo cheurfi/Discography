@@ -1,5 +1,6 @@
 package com.cheurfi.search
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cheurfi.search.data.Artist
@@ -16,6 +17,7 @@ class SearchViewModel @Inject constructor(
     private val dispatcherProvider: DispatcherProvider,
 ) : ViewModel() {
 
+    val searchText = mutableStateOf("")
     val artists = MutableStateFlow<List<Artist>>(emptyList())
 
     fun getArtists(name: String) {

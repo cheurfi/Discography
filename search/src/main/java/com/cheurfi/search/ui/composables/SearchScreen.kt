@@ -37,7 +37,7 @@ fun SearchScreen(
     onArtistSelected: (String) -> Unit,
 ) {
     val viewModel: SearchViewModel = hiltViewModel()
-    var text by remember { mutableStateOf("") }
+    var text by remember { viewModel.searchText }
     Column(
         modifier = Modifier
             .fillMaxSize()
