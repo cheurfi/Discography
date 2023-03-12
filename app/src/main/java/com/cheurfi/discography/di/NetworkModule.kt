@@ -1,10 +1,11 @@
-package di
+package com.cheurfi.discography.di
 
+import com.cheurfi.details.network.RecordService
 import com.cheurfi.discography.BuildConfig
-import dagger.Module
-import dagger.Provides
 import com.cheurfi.search.network.MusicBrainzService
 import com.cheurfi.utils.network.RequestInterceptor
+import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import okhttp3.OkHttpClient
@@ -42,4 +43,7 @@ class NetworkModule {
 
     @Provides
     fun provideUserNetworkService(): MusicBrainzService = retrofit.create(MusicBrainzService::class.java)
+
+    @Provides
+    fun provideRecordService(): RecordService = retrofit.create(RecordService::class.java)
 }

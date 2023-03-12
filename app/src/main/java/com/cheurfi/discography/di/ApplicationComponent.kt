@@ -1,4 +1,4 @@
-package di
+package com.cheurfi.discography.di
 
 import com.cheurfi.discography.MainActivity
 import dagger.Component

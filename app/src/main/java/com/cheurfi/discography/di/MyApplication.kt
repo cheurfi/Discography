@@ -1,4 +1,4 @@
-package di
+package com.cheurfi.discography.di
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
