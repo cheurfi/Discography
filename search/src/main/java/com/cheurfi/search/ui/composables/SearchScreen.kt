@@ -18,7 +18,6 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -26,8 +25,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.cheurfi.repository.data.Artist
 import com.cheurfi.search.SearchViewModel
-import com.cheurfi.search.data.Artist
 import com.cheurfi.search.ui.theme.DiscographyTheme
 
 const val SEARCH_SCREEN = "SEARCH_SCREEN"

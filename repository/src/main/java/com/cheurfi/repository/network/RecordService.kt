@@ -1,4 +1,4 @@
-package com.cheurfi.details.network
+package com.cheurfi.repository.network
 
 import com.google.gson.annotations.SerializedName
 import retrofit2.http.GET

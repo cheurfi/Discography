@@ -1,9 +1,9 @@
-package com.cheurfi.search.network
+package com.cheurfi.repository.network
 
-import com.cheurfi.search.data.Artists
+import com.cheurfi.repository.data.Artists
 import retrofit2.http.*
 
-interface MusicBrainzService {
+interface ArtistService {
 
     @Headers("Accept: application/json")
     @GET("/ws/2/artist/")

@@ -1,4 +1,4 @@
-package com.cheurfi.search.data
+package com.cheurfi.repository.data
 
 import com.google.gson.annotations.SerializedName
 

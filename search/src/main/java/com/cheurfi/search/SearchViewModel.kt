@@ -3,8 +3,8 @@ package com.cheurfi.search
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cheurfi.search.data.Artist
-import com.cheurfi.search.network.NetworkInteractor
+import com.cheurfi.repository.data.Artist
+import com.cheurfi.repository.network.ArtistRepository
 import com.cheurfi.utils.coroutines.DispatcherProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val interactor: NetworkInteractor,
+    private val artistRepository: ArtistRepository,
     private val dispatcherProvider: DispatcherProvider,
 ) : ViewModel() {
 
@@ -22,7 +22,7 @@ class SearchViewModel @Inject constructor(
 
     fun getArtists(name: String) {
         viewModelScope.launch(dispatcherProvider.computation()) {
-            artists.value = interactor.getArtists(name)?.artists ?: emptyList()
+            artists.value = artistRepository.getArtists(name)?.artists ?: emptyList()
         }
     }
 }

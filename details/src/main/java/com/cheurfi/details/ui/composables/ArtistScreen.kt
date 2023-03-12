@@ -41,24 +41,23 @@ fun ArtistScreen(artistId: String = "f835c755-d70b-42d8-a979-01f67c3c47e8") {
     ) {
 
         items(records) { record ->
-//            Text(modifier = Modifier.padding(5.dp), text = artistId)
             Card(
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 Column(
                     modifier = Modifier.padding(20.dp),
-                    ) {
-                        Text(
-                            modifier = Modifier.padding(5.dp),
-                            text = record.title,
-                            style = MaterialTheme.typography.labelLarge,
-                        )
-                        Text(
-                            modifier = Modifier.padding(5.dp),
-                            text = record.firstReleaseDate.orEmpty(),
-                            style = MaterialTheme.typography.labelSmall,
-                        )
-                    }
+                ) {
+                    Text(
+                        modifier = Modifier.padding(5.dp),
+                        text = record.title,
+                        style = MaterialTheme.typography.labelLarge,
+                    )
+                    Text(
+                        modifier = Modifier.padding(5.dp),
+                        text = record.firstReleaseDate.orEmpty(),
+                        style = MaterialTheme.typography.labelSmall,
+                    )
+                }
             }
         }
     }

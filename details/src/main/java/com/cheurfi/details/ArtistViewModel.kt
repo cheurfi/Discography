@@ -2,8 +2,8 @@ package com.cheurfi.details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cheurfi.details.network.RecordResponse
-import com.cheurfi.details.network.RecordService
+import com.cheurfi.repository.data.Recording
+import com.cheurfi.repository.network.ArtistRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,26 +12,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ArtistViewModel @Inject constructor(
-    private val recordService: RecordService,
-//    private val interactor: NetworkInteractor,
-//    private val dispatcherProvider: DispatcherProvider,
+    private val artistRepository: ArtistRepository,
 ) : ViewModel() {
 
-    val records: MutableSharedFlow<List<RecordResponse.Recording>> = MutableStateFlow(emptyList())
+    val records: MutableSharedFlow<List<Recording>> = MutableStateFlow(emptyList())
 
     fun getRecords(artistId: String) {
         viewModelScope.launch {
-            records.emit(recordService.getRecordings(artistId = artistId).recordings)
+            records.emit(artistRepository.getRecordings(artistId = artistId))
         }
     }
 }
-
-//
-//    val artists = MutableStateFlow<List<Artist>>(emptyList())
-//
-//    fun getArtists(name: String) {
-//        viewModelScope.launch(dispatcherProvider.computation()) {
-//            artists.value = interactor.getArtists(name)?.artists ?: emptyList()
-//        }
-//    }
-//}

@@ -1,9 +1,12 @@
 package com.cheurfi.discography.di
 
-import com.cheurfi.details.network.RecordService
 import com.cheurfi.discography.BuildConfig
-import com.cheurfi.search.network.MusicBrainzService
+import com.cheurfi.repository.network.ArtistRepository
+import com.cheurfi.repository.network.ArtistService
+import com.cheurfi.repository.network.MusicBrainzArtistRepository
+import com.cheurfi.repository.network.RecordService
 import com.cheurfi.utils.network.RequestInterceptor
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,34 +19,41 @@ import java.util.concurrent.TimeUnit
 
 @Module
 @InstallIn(ViewModelComponent::class)
-class NetworkModule {
-    private val client: OkHttpClient.Builder
-        get() = OkHttpClient.Builder()
-            .connectTimeout(CONNECT_TIMEOUT, TimeUnit.MINUTES)
-            .readTimeout(READ_TIMEOUT, TimeUnit.MINUTES)
-            .writeTimeout(WRITE_TIMEOUT, TimeUnit.MINUTES)
-            .addInterceptor(
-                HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT).setLevel(
-                    HttpLoggingInterceptor.Level.BODY
-                )
-            )
+abstract class NetworkModule {
 
-    private val retrofit: Retrofit
-        get() = Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(BuildConfig.BASE_URL)
-            .client(client.addInterceptor(RequestInterceptor("Discography", "some@email.com")).build())
-            .build()
+
+    @Binds
+    abstract fun bindArtistRepository(musicBrainzArtistRepository: MusicBrainzArtistRepository): ArtistRepository
+
 
     companion object {
+        private val client: OkHttpClient.Builder
+            get() = OkHttpClient.Builder()
+                .connectTimeout(CONNECT_TIMEOUT, TimeUnit.MINUTES)
+                .readTimeout(READ_TIMEOUT, TimeUnit.MINUTES)
+                .writeTimeout(WRITE_TIMEOUT, TimeUnit.MINUTES)
+                .addInterceptor(
+                    HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT).setLevel(
+                        HttpLoggingInterceptor.Level.BODY
+                    )
+                )
+
+        private val retrofit: Retrofit
+            get() = Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(BuildConfig.BASE_URL)
+                .client(client.addInterceptor(RequestInterceptor("Discography", "some@email.com")).build())
+                .build()
+
+        @Provides
+        fun provideArtistService(): ArtistService = retrofit.create(ArtistService::class.java)
+
+        @Provides
+        fun provideRecordService(): RecordService = retrofit.create(RecordService::class.java)
+
         const val CONNECT_TIMEOUT = 1L
         const val WRITE_TIMEOUT = 1L
         const val READ_TIMEOUT = 1L
     }
 
-    @Provides
-    fun provideUserNetworkService(): MusicBrainzService = retrofit.create(MusicBrainzService::class.java)
-
-    @Provides
-    fun provideRecordService(): RecordService = retrofit.create(RecordService::class.java)
 }

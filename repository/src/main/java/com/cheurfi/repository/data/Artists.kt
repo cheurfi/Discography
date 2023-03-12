@@ -1,4 +1,4 @@
-package com.cheurfi.search.data
+package com.cheurfi.repository.data
 
 data class Artists(
     val artists: List<Artist>,
