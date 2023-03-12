@@ -1,26 +1,28 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
 }
 
 android {
-    namespace 'com.cheurfi.discography'
+    namespace 'com.cheurfi.search'
     compileSdk 33
 
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.4.3'
+    }
+
     defaultConfig {
-        applicationId "com.cheurfi.discography"
         minSdk 24
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary true
-        }
-        buildConfigField "String", 'BASE_URL', '"https://musicbrainz.org/"'
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -35,41 +37,33 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
-    }
-    buildFeatures {
-        compose true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion '1.4.3'
-    }
-    packagingOptions {
-        resources {
-            excludes += '/META-INF/{AL2.0,LGPL2.1}'
-        }
-    }
-    kapt {
-        generateStubs = true
+        freeCompilerArgs += "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api"
     }
 }
 
 dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.5.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation 'androidx.compose.material3:material3:1.0.0-alpha11'
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'com.google.android.material:material:1.7.0-alpha03'
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
     implementation "androidx.compose.runtime:runtime:$compose_version"
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    //lifecycle
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle"
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
 
     //di
     implementation "com.google.dagger:hilt-android:2.44"
+    implementation 'androidx.hilt:hilt-navigation-compose:1.1.0-alpha01'
 
-    //navigation
-    implementation 'androidx.navigation:navigation-compose:2.6.0-alpha07'
+    kapt 'com.google.dagger:hilt-compiler:2.44'
 
     //networking
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -77,9 +71,6 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
-    kapt 'com.google.dagger:hilt-compiler:2.44'
-
     implementation project(':utils')
-    implementation project(':search')
-    implementation project(':details')
+
 }
