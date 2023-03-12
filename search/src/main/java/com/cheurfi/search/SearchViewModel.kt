@@ -22,7 +22,7 @@ class SearchViewModel @Inject constructor(
 
     fun getArtists(name: String) {
         viewModelScope.launch(dispatcherProvider.computation()) {
-            artists.value = artistRepository.getArtists(name)?.artists ?: emptyList()
+            artists.value = artistRepository.getArtists(name)
         }
     }
 }

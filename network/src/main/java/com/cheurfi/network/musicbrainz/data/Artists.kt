@@ -1,4 +1,4 @@
-package com.cheurfi.repository.data
+package com.cheurfi.network.musicbrainz.data
 
 data class Artists(
     val artists: List<Artist>,

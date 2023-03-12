@@ -1,6 +1,6 @@
-package com.cheurfi.repository.network
+package com.cheurfi.network.musicbrainz
 
-import com.cheurfi.repository.data.Artists
+import com.cheurfi.network.musicbrainz.data.Artists
 import retrofit2.http.*
 
 interface ArtistService {

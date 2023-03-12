@@ -1,4 +1,4 @@
-package com.cheurfi.repository.network
+package com.cheurfi.network.musicbrainz
 
 import com.google.gson.annotations.SerializedName
 import retrofit2.http.GET

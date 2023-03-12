@@ -1,10 +1,9 @@
-package com.cheurfi.discography.di
+package com.cheurfi.network
 
-import com.cheurfi.discography.BuildConfig
+import com.cheurfi.network.musicbrainz.ArtistService
+import com.cheurfi.network.musicbrainz.MusicBrainzArtistRepository
+import com.cheurfi.network.musicbrainz.RecordService
 import com.cheurfi.repository.network.ArtistRepository
-import com.cheurfi.repository.network.ArtistService
-import com.cheurfi.repository.network.MusicBrainzArtistRepository
-import com.cheurfi.repository.network.RecordService
 import com.cheurfi.utils.network.RequestInterceptor
 import dagger.Binds
 import dagger.Module
@@ -21,12 +20,11 @@ import java.util.concurrent.TimeUnit
 @InstallIn(ViewModelComponent::class)
 abstract class NetworkModule {
 
-
     @Binds
     abstract fun bindArtistRepository(musicBrainzArtistRepository: MusicBrainzArtistRepository): ArtistRepository
 
-
     companion object {
+
         private val client: OkHttpClient.Builder
             get() = OkHttpClient.Builder()
                 .connectTimeout(CONNECT_TIMEOUT, TimeUnit.MINUTES)
