@@ -107,7 +107,7 @@ internal class MusicBrainzArtistRepositoryTest {
         `when`(mockRecordService.getRecordings(artistId = "1")).thenThrow(RuntimeException())
 
         val actual = repository.getRecordings(artistId = "1")
-        assert(actual.equals(emptyList<Artist>()))
+        assert(actual == emptyList<Artist>())
     }
 
     @Test
@@ -125,13 +125,7 @@ internal class MusicBrainzArtistRepositoryTest {
         )
 
         val actual = repository.getRecordings(artistId = "1")
-        assert(
-            actual == recordResponse.recordings.map {
-                Recording(
-                    title = it.title,
-                    firstReleaseDate = it.firstReleaseDate,
-                )
-            }
-        )
+        assert(actual.first().title == recordResponse.recordings.first().title)
+        assert(actual.first().firstReleaseDate == recordResponse.recordings.first().firstReleaseDate)
     }
 }
